@@ -1,13 +1,17 @@
-import { connect } from 'react-redux';
-import { removeCard, renameCard, moveCard } from '../actions';
+import {connect} from 'react-redux';
+import {removeCard, renameCard, moveCard} from '../actions';
 import CardHolder from '../components/Cards-Holder';
+import sortBy from 'lodash/sortBy';
+import filter from 'lodash/filter';
 
 const mapStateToProps = (state, ownProps) => {
-    return {
-        cards: state.cards.filter((card) => {
-            // return cards only of current parent list
+    let cards = sortBy(
+        filter(state.cards, (card)=> {
             return card.parentID === ownProps.listID;
-        })
+        }), 'index');
+
+    return {
+        cards: cards
     }
 };
 
@@ -21,8 +25,8 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(renameCard(id, title));
         },
 
-        onMoveList: (id) => {
-            dispatch(moveCard(id, 0))
+        onMoveCard: (id, parentID, hoveredItemID, draggedItemIndex, hoveredItemIndex, isMovedToAnotherList) => {
+            dispatch(moveCard(id, parentID, hoveredItemID, draggedItemIndex, hoveredItemIndex, isMovedToAnotherList));
         }
     }
 };

@@ -25,9 +25,9 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-const AvailableList = connect(
+const AvailableLists = connect(
     mapStateToProps,
     mapDispatchToProps
 )(ListHolder);
 
-export default AvailableList;
+export default AvailableLists;

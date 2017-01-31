@@ -73,12 +73,15 @@ export const renameCard = (id, newTitle) => {
     };
 };
 
-export const moveCard = (id, parentID, indexToPlaceAt) => {
+export const moveCard = (id, parentID, hoveredItemID, draggedItemIndex, hoveredItemIndex, isMovedToAnotherList) => {
     return {
         type: actions.MOVE_CARD,
         id: id,
         parentID: parentID,
-        index: indexToPlaceAt
+        hoveredItemID: hoveredItemID,
+        draggedItemIndex: draggedItemIndex,
+        hoveredItemIndex: hoveredItemIndex,
+        isMovedToAnotherList: isMovedToAnotherList
     };
 };
 

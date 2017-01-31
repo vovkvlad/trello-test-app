@@ -8,6 +8,7 @@ export const REMOVE_CARD = 'REMOVE_CARD';
 export const REMOVE_ALL_CARDS_FROM_LIST = 'REMOVE_ALL_CARDS_FROM_LIST';
 export const RENAME_CARD = 'RENAME_CARD';
 export const MOVE_CARD = 'MOVE_CARD';
+export const REODER_CARDS = 'MOVE_CARD';
 
 export default {
     ADD_LIST,
