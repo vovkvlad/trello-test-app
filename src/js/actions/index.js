@@ -49,7 +49,8 @@ export const addCard = (title, parentID) => {
         type: actions.ADD_CARD,
         id: nextCardId++,
         title: title,
-        parentID: parentID
+        parentID: parentID,
+        cardColor: '#fff'
     };
 };
 
@@ -87,6 +88,14 @@ export const moveCard = (id, parentID, hoveredItemID, draggedItemIndex, hoveredI
     };
 };
 
+export const changeCardColor = (id, cardColor) =>{
+    return {
+        type: actions.CHANGE_CARD_COLOR,
+        id: id,
+        cardColor: cardColor
+    };
+};
+
 export default {
     addList,
     removeList,
@@ -95,5 +104,6 @@ export default {
     addCard,
     removeCard,
     renameCard,
-    moveCard
+    moveCard,
+    changeCardColor
 };

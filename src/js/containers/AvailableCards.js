@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {removeCard, renameCard, moveCard} from '../actions';
+import {removeCard, renameCard, moveCard, changeCardColor} from '../actions';
 import CardHolder from '../components/Cards-Holder';
 import sortBy from 'lodash/sortBy';
 import filter from 'lodash/filter';
@@ -27,6 +27,10 @@ const mapDispatchToProps = (dispatch) => {
 
         onMoveCard: (id, parentID, hoveredItemID, draggedItemIndex, hoveredItemIndex, isMovedToAnotherList) => {
             dispatch(moveCard(id, parentID, hoveredItemID, draggedItemIndex, hoveredItemIndex, isMovedToAnotherList));
+        },
+
+        onChangeCardColor: (id, cardColor) => {
+            dispatch(changeCardColor(id, cardColor));
         }
     }
 };

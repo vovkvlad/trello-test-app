@@ -1,7 +1,7 @@
 import React from 'react';
 import CardItem from './Card-Item';
 
-const CardsHolder = ({ cards, onRemoveClick, onRenameClick, onMoveCard }) => {
+const CardsHolder = ({ cards, onRemoveClick, onRenameClick, onMoveCard, onChangeCardColor }) => {
     let input;
 
     return (
@@ -12,10 +12,12 @@ const CardsHolder = ({ cards, onRemoveClick, onRenameClick, onMoveCard }) => {
                     id={card.id}
                     index={card.index}
                     title={card.title}
+                    cardColor={card.cardColor}
                     parentID={card.parentID}
                     onRemoveClick={onRemoveClick}
                     onRenameClick={onRenameClick}
                     onMoveCard={onMoveCard}
+                    onChangeCardColor={onChangeCardColor}
                 />
             )}
         </div>

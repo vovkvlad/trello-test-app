@@ -33,8 +33,10 @@ const card = (state = {}, action) => {
                 id: action.id,
                 title: action.title,
                 parentID: action.parentID,
-                index: parentIDIndexMap[ action.parentID ]
+                index: parentIDIndexMap[ action.parentID ],
+                cardColor: action.cardColor
             };
+
         case actionTypes.RENAME_CARD:
             if (state.id !== action.id) {
                 return state;
@@ -43,6 +45,16 @@ const card = (state = {}, action) => {
             return Object.assign({}, state, {
                 title: action.title
             });
+
+        case actionTypes.CHANGE_CARD_COLOR:
+            if (state.id !== action.id) {
+                return state;
+            }
+
+            return Object.assign({}, state, {
+                cardColor: action.cardColor
+            });
+
         default:
             return state;
     }
@@ -57,8 +69,8 @@ const cards = (state = [], action) => {
             ];
 
         case actionTypes.RENAME_CARD:
-            return state.map(listItem => {
-                return card(listItem, action);
+            return state.map(cardItem => {
+                return card(cardItem, action);
             });
 
         case actionTypes.REMOVE_CARD:
@@ -110,6 +122,11 @@ const cards = (state = [], action) => {
                 return tmpState;
 
             }
+
+        case actionTypes.CHANGE_CARD_COLOR:
+            return state.map(cardItem => {
+                return card(cardItem, action);
+            });
 
         default:
             return state;

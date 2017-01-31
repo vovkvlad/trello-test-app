@@ -4,6 +4,7 @@ import {DragSource, DropTarget} from 'react-dnd'
 import dndTypes from '../dragAndDropTypes';
 import RenameDeleteItem from './Rename-Delete-Item';
 import flow from 'lodash/flow'
+import ChangeCardColor from './Change-Card-Color';
 
 const cardSourceSpec = {
     beginDrag(props, monitor, component) {
@@ -96,13 +97,13 @@ class CardItem extends Component {
             title,
             id,
             index,
-            parentID,
+            cardColor,
             onRemoveClick,
             onRenameClick,
-            onMoveCard,
             isDragging,
             connectDragSource,
-            connectDropTarget
+            connectDropTarget,
+            onChangeCardColor
         } = this.props;
 
         const opacity = isDragging ? 0 : 1;
@@ -110,7 +111,10 @@ class CardItem extends Component {
         return connectDragSource(connectDropTarget(
             <div
                 className="card-item"
-                style={{ opacity }}
+                style={{
+                    backgroundColor: cardColor,
+                    opacity
+                }}
             >
                 <RenameDeleteItem
                     title={title}
@@ -118,7 +122,15 @@ class CardItem extends Component {
                     onRemoveClick={onRemoveClick}
                     onRenameClick={onRenameClick}
                 />
-                <div style={{ height: '15px' }}>{index}</div>
+
+                <div className="change-color-control">
+                    <ChangeCardColor parentID={id} color="red" onChangeCardColor={onChangeCardColor} />
+                    <ChangeCardColor parentID={id} color="green" onChangeCardColor={onChangeCardColor} />
+                    <ChangeCardColor parentID={id} color="white" onChangeCardColor={onChangeCardColor} />
+                    <ChangeCardColor parentID={id} color="bisque" onChangeCardColor={onChangeCardColor} />
+                    <ChangeCardColor parentID={id} color="cornflowerblue" onChangeCardColor={onChangeCardColor} />
+                    <ChangeCardColor parentID={id} color="sandybrown" onChangeCardColor={onChangeCardColor} />
+                </div>
             </div>
         ));
     }

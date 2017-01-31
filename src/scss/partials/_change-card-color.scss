@@ -1,0 +1,21 @@
+.change-color-control {
+  display: flex;
+  justify-content: center;
+  height: 20px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+
+  &__item {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: 20px;
+    height: 20px;
+    background-color: red;
+    margin-right: 10px;
+    cursor: pointer;
+    color: sandybrown;
+    border-radius: $border-radius;
+    border: 1px solid $input-border-color;
+    box-shadow: 1px 1px 2px $input-border-color;
+  }
+}
