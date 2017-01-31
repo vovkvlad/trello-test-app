@@ -1,11 +1,13 @@
 import actionTypes from '../actions/actionTypes'
+import cloneDeep from 'lodash/cloneDeep';
 
 const list = (state={}, action) => {
     switch (action.type) {
         case actionTypes.ADD_LIST:
             return {
                 id: action.id,
-                title: action.title
+                title: action.title,
+                index: action.index
             };
         case actionTypes.RENAME_LIST:
             if (state.id !== action.id) {
@@ -42,7 +44,20 @@ const lists = (state = [], action) => {
             });
 
         case actionTypes.MOVE_LIST:
-            return state;// will be fixed
+            let tmpState = cloneDeep(state);
+
+            let draggedElement = tmpState.find((card) => {
+                return card.id === action.id;
+            });
+
+            let hoveredElement = tmpState.find((card) => {
+                return card.id === action.hoveredItemID;
+            });
+
+            draggedElement.index = action.hoveredItemIndex;
+            hoveredElement.index = action.draggedItemIndex;
+
+            return tmpState;
 
         default:
             return state;

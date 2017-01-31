@@ -83,7 +83,7 @@ const cards = (state = [], action) => {
             let hoveredElement = tmpState.find((card) => {
                 return card.id === action.hoveredItemID;
             });
-            
+
             if (action.isMovedToAnotherList) {
                 draggedElement.parentID = hoveredElement.parentID;
                 draggedElement.index = action.draggedItemIndex;
@@ -110,7 +110,6 @@ const cards = (state = [], action) => {
                 return tmpState;
 
             }
-            return state;// will be fixed
 
         default:
             return state;

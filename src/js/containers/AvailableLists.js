@@ -1,10 +1,12 @@
 import { connect } from 'react-redux';
 import { removeList, renameList, moveList, removeAllCardsFromList } from '../actions';
 import ListHolder from '../components/Lists-Holder';
+import sortBy from 'lodash/sortBy';
+
 
 const mapStateToProps = (state) => {
     return {
-        lists: state.lists
+        lists: sortBy(state.lists, 'index')
     }
 };
 
@@ -19,8 +21,8 @@ const mapDispatchToProps = (dispatch) => {
             dispatch(renameList(id, title));
         },
 
-        onMoveList: (id) => {
-            dispatch(moveList(id, 0))
+        onMoveList: (id, hoveredItemID, draggedItemIndex, hoveredItemIndex) => {
+            dispatch(moveList(id, hoveredItemID, draggedItemIndex, hoveredItemIndex))
         }
     }
 };

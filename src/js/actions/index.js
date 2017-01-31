@@ -12,7 +12,7 @@ export const addList = (title) => {
     return {
         type: actions.ADD_LIST,
         id: nextListId++,
-        index: nextListIndex,
+        index: nextListIndex++,
         title: title
     };
 };
@@ -32,11 +32,13 @@ export const renameList = (id, newTitle) => {
     };
 };
 
-export const moveList = (id, indexToPlaceAt) => {
+export const moveList = (id, hoveredItemID, draggedItemIndex, hoveredItemIndex) => {
     return {
         type: actions.MOVE_LIST,
         id: id,
-        index: indexToPlaceAt
+        hoveredItemID:hoveredItemID,
+        draggedItemIndex:draggedItemIndex,
+        hoveredItemIndex:hoveredItemIndex
     };
 };
 

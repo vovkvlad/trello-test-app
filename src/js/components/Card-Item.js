@@ -19,7 +19,6 @@ const cardSourceSpec = {
 const cardTargetSpec = {
     hover(props, monitor, component){
         const draggedItem = monitor.getItem();
-        //console.log('hover called upon - ' + props.id);
         const draggedItemIndex = draggedItem.index;
         const hoveredItemIndex = props.index;
 

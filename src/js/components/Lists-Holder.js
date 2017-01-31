@@ -9,6 +9,7 @@ const ListHolder = ({lists, onRenameClick, onRemoveClick, onMoveList}) => (
             <ListItem
                 key={list.id}
                 id={list.id}
+                index={list.index}
                 title={list.title}
                 onRenameClick={onRenameClick}
                 onRemoveClick={onRemoveClick}
