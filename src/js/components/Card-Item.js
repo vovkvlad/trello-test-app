@@ -19,13 +19,12 @@ const cardSourceSpec = {
 const cardTargetSpec = {
     hover(props, monitor, component){
         const draggedItem = monitor.getItem();
+        //console.log('hover called upon - ' + props.id);
         const draggedItemIndex = draggedItem.index;
         const hoveredItemIndex = props.index;
 
-        // Don't replace items with themselves
-        if (draggedItemIndex === hoveredItemIndex) {
-            return;
-        }
+        //determine whether we are moving card to another list
+        const isMovedToAnotherList = draggedItem.parentID !== props.parentID;
 
         // Determine rectangle on screen
         const hoverBoundingRect = findDOMNode(component).getBoundingClientRect();
@@ -35,35 +34,51 @@ const cardTargetSpec = {
         const clientOffset = monitor.getClientOffset();
         // Get pixels to the top
         const hoverClientY = clientOffset.y - hoverBoundingRect.top;
-
-        // Only perform the move when the mouse has crossed half of the items height
-        // When dragging downwards, only move when the cursor is below 50%
-        // When dragging upwards, only move when the cursor is above 50%
-
-        // Dragging downwards
-        if (draggedItemIndex < hoveredItemIndex && hoverClientY < hoverMiddleY) {
+        // Don't replace items with themselves
+        if (draggedItem.id === props.id) {
             return;
         }
 
-        // Dragging upwards
-        if (draggedItemIndex > hoveredItemIndex && hoverClientY > hoverMiddleY) {
-            return;
+        if (!isMovedToAnotherList) {
+
+            // Only perform the move when the mouse has crossed half of the items height
+            // When dragging downwards, only move when the cursor is below 50%
+            // When dragging upwards, only move when the cursor is above 50%
+
+            // Dragging downwards
+            if (draggedItemIndex < hoveredItemIndex && hoverClientY < hoverMiddleY) {
+                return;
+            }
+
+            // Dragging upwards
+            if (draggedItemIndex > hoveredItemIndex && hoverClientY > hoverMiddleY) {
+                return;
+            }
+
+            props.onMoveCard(draggedItem.id, draggedItem.parentID, props.id, draggedItemIndex, hoveredItemIndex, isMovedToAnotherList);
+
+            // Note: we're mutating the monitor item here!
+            // Generally it's better to avoid mutations,
+            // but it's good here for the sake of performance
+            // to avoid expensive index searches.
+            monitor.getItem().index = hoveredItemIndex;
+        } else {
+            // basically we add 0.5 as a workaround to determine where card should go,
+            // either upon the hovered card, or below it
+            if (hoverClientY < hoverMiddleY) {
+                props.onMoveCard(draggedItem.id, draggedItem.parentID, props.id, hoveredItemIndex + 0.5, hoveredItemIndex, isMovedToAnotherList);
+                draggedItem.parentID = props.parentID;
+                monitor.getItem().index = hoveredItemIndex;
+            } else {
+                props.onMoveCard(draggedItem.id, draggedItem.parentID, props.id, hoveredItemIndex - 0.5, hoveredItemIndex, isMovedToAnotherList);
+                draggedItem.parentID = props.parentID;
+                monitor.getItem().index = hoveredItemIndex;
+            }
         }
-
-        //determine whether we are moving card to another list
-        const isMovedToAnotherList = draggedItem.parentID !== props.parentID;
-
-        props.onMoveCard(draggedItem.id, draggedItem.parentID, props.id, draggedItemIndex, hoveredItemIndex, isMovedToAnotherList);
-
-        // Note: we're mutating the monitor item here!
-        // Generally it's better to avoid mutations,
-        // but it's good here for the sake of performance
-        // to avoid expensive index searches.
-        monitor.getItem().index = hoveredItemIndex;
     }
 };
 
-const  cardSourceConnector = (connect, monitor) => {
+const cardSourceConnector = (connect, monitor) => {
     return {
         connectDragSource: connect.dragSource(),
         isDragging: monitor.isDragging()
@@ -96,7 +111,7 @@ class CardItem extends Component {
         return connectDragSource(connectDropTarget(
             <div
                 className="card-item"
-                style={{opacity}}
+                style={{ opacity }}
             >
                 <RenameDeleteItem
                     title={title}
@@ -104,7 +119,7 @@ class CardItem extends Component {
                     onRemoveClick={onRemoveClick}
                     onRenameClick={onRenameClick}
                 />
-                <div style={{height: '15px'}}>{index}</div>
+                <div style={{ height: '15px' }}>{index}</div>
             </div>
         ));
     }
@@ -113,7 +128,7 @@ class CardItem extends Component {
 export default flow([
     DragSource(dndTypes.card, cardSourceSpec, cardSourceConnector),
     DropTarget(dndTypes.card, cardTargetSpec, cardTargetConnector)
-    ])(CardItem);
+])(CardItem);
 
 /*
  const CardItem = ({title, id, parentID, onRemoveClick, onRenameClick, onMoveCard}) => {
