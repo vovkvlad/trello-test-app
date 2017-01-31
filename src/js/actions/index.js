@@ -58,6 +58,13 @@ export const removeCard = (id) => {
     };
 };
 
+export const removeAllCardsFromList = (parentID) => {
+    return {
+        type: actions.REMOVE_ALL_CARDS_FROM_LIST,
+        parentID: parentID
+    }
+};
+
 export const renameCard = (id, newTitle) => {
     return {
         type: actions.RENAME_CARD,

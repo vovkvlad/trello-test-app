@@ -5,6 +5,7 @@ export const MOVE_LIST = 'MOVE_LIST';
 
 export const ADD_CARD = 'ADD_CARD';
 export const REMOVE_CARD = 'REMOVE_CARD';
+export const REMOVE_ALL_CARDS_FROM_LIST = 'REMOVE_ALL_CARDS_FROM_LIST';
 export const RENAME_CARD = 'RENAME_CARD';
 export const MOVE_CARD = 'MOVE_CARD';
 
@@ -15,6 +16,7 @@ export default {
     MOVE_LIST,
     ADD_CARD,
     REMOVE_CARD,
+    REMOVE_ALL_CARDS_FROM_LIST,
     RENAME_CARD,
     MOVE_CARD
 };

@@ -1,0 +1,12 @@
+body {
+  margin: 0;
+}
+
+html, button, input {
+  font-family: "Helvetica Neue", Arial, Helvetica, sans-serif;
+  font-size: 1em;
+}
+
+.app-container {
+  background-color: $main-background-color;
+}

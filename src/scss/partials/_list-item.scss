@@ -1,0 +1,20 @@
+.list-item {
+  display: flex;
+  flex-direction: column;
+
+  margin-top: 15px;
+  margin-right: 10px;
+  padding: 10px;
+
+  background: #E2E4E6;
+  border-radius: $border-radius;
+  box-shadow: $box-shadow;
+  box-sizing: border-box;
+  overflow: auto;
+
+  h3 {
+    color: $title-color;
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+}

@@ -4,13 +4,14 @@ module.exports = {
     context: __dirname + "/src",
 
     entry: {
-        javascript: "./js/app.js",
+        javascript: "./js/index.js",
         html: "./index.html"
     },
 
     output: {
         filename: "app.js",
-        path: __dirname + "/dist"
+        path: __dirname + "/dist",
+        publicPath: '/'
     },
 
     debug: true,
@@ -35,6 +36,30 @@ module.exports = {
             {
                 test: /\.scss$/,
                 loader: 'style!css?sourceMap!sass?sourceMap'
+            },
+            {
+                test: /\.css$/,
+                loader: 'style!css'
+            },
+            // {
+            //     test: /\.(svg|jpg|png|gif|ttf|eot|woff|woff2)$/,
+            //     loader: 'file?name=[path][name].[ext]'
+            // }
+            {
+                test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "url?limit=10000&mimetype=application/font-woff"
+            }, {
+                test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "url?limit=10000&mimetype=application/font-woff2"
+            }, {
+                test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "url?limit=10000&mimetype=application/octet-stream"
+            }, {
+                test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "file"
+            }, {
+                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+                loader: "url?limit=10000&mimetype=image/svg+xml"
             }
         ]
     }
